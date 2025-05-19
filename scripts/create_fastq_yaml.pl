@@ -100,19 +100,17 @@ while (my $line = <$INPUT>) {
 			$lane = $parts[1];
 			$lane =~ s/_R1.fastq.gz|_R2.fastq.gz//;
 			} else {
-			# for a 'non-standard' case, let's assume the libraryID is the sampleID
-			@parts = split(/_|\./, $fastq);
-			$lib = $sample;
+    			# Use the sample ID as library
+   			$lib = $sample;
 
-			# if non-unique lane identifier is used, it will generally be 
-			# in the format L# (ie, L001)
-			if (any { $_ =~ m/L00/ } @parts) {
-				my $lane_idx = first_index { $_ eq 'L00' } @parts;
-				$lane = $parts[$lane_idx];
-				} else {
-				$lane = 'lane_name';
-				}
+    			# Try to extract lane from _R1_001.fastq.gz or _R2_001.fastq.gz
+    			if ($fastq =~ /_R[12]_(\d+)\.fastq\.gz$/) {
+    			    $lane = $1;  # e.g., "001"
+    			} else {
+    			    $lane = 'lane_name';
+    			}
 			}
+
 
 		$read_dir = 'R1';
 		if (grep /R2.fastq/, $fastq) { $read_dir = 'R2'; }
