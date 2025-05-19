@@ -74,16 +74,15 @@ bwa:
     aligner: bwamem
     reference: /cluster/projects/kridelgroup/resources/Homo_sapiens_BWA_ref_updated_2024/seqs_for_alignment_pipelines/genome.fa
     parameters:
-        bwa:
-            mem:
-                normal: 8G
-                tumour: 8G
-            n_cpus:
-                normal: 4
-                tumour: 4
-            time:
-                normal: '24:00:00'
-                tumour: '48:00:00'
+        mem:
+            normal: 8G
+            tumour: 8G
+        n_cpus:
+            normal: 4
+            tumour: 4
+        time:
+            normal: '24:00:00'
+            tumour: '48:00:00'
         sort:
             mem:
                 normal: 4G
