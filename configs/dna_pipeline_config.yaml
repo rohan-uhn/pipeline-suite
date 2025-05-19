@@ -68,7 +68,7 @@ fastqc:
     parameters:
         fastqc:
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
 bwa:
     run: Y
     aligner: bwamem
@@ -359,40 +359,40 @@ delly:
     parameters:
         call:
             mem: 8G
-            time: '72:00:00'
+            time: '05:00:00'
         genotype:
             mem: 6G
-            time: '48:00:00'
+            time: '05:00:00'
         merge:
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
         filter:
             mem: 2G
-            time: '12:00:00'
+            time: '05:00:00'
 novobreak:
     run: Y
     chromosomes:
     parameters:
         novobreak:
             mem: 40G
-            time: '24:00:00'
+            time: '05:00:00'
             n_cpus: 10
         group_reads:
             mem: 40G
-            time: '24:00:00'
+            time: '05:00:00'
         postprocess:
             mem: 12G
             time: '05:00:00'
             n_cpus: 4
         filter:
             mem: 4G
-            time: '12:00:00'
+            time: '05:00:00'
 svict:
     run: N # only for ctDNA (targeted panel)
     parameters:
         svict:
             mem: 16G
-            time: '24:00:00'
+            time: '05:00:00'
 panelcn_mops:
     run: Y # only for targeted panel
     pon: # ignored if create_pon:run:Y
@@ -401,20 +401,20 @@ panelcn_mops:
         create_pon:
             run: N
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
         cn_mops:
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 ichor_cna:
     run: N # ideal for low-pass WGS
     pon:
     parameters:
         readcounter:
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
         ichor_cna:
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
 ascat:
     run: N # only for WGS
     parameters:
@@ -441,13 +441,13 @@ msi_sensor:
     parameters:
         scan:
             mem: 1G
-            time: '04:00:00'
+            time: '05:00:00'
         baseline: # only required if tumour-only samples are also present
             mem: 4G
             time: '05:00:00'
         sensor: # some WGS require up to 36G, but most (WXS/WGS/targeted) are fine with 4G
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 summarize_steps:
     lib_path: '/cluster/projects/pughlab/src/r_lib/library/4.1/'
     run_cosmic_sbs: # note that signatures (path) takes priority over cosmic_version
