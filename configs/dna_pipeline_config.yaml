@@ -421,7 +421,7 @@ ascat:
         ascat_lib_path: '/cluster/projects/pughlab/src/r_lib/library/4.1/'
         ascat:
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
             n_cpus: 1
 mavis:
     run: Y
