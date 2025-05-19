@@ -112,8 +112,13 @@ while (my $line = <$INPUT>) {
 			}
 
 
-		$read_dir = 'R1';
-		if (grep /R2.fastq/, $fastq) { $read_dir = 'R2'; }
+			if ($fastq =~ /_R1_/) {
+			    $read_dir = 'R1';
+			} elsif ($fastq =~ /_R2_/) {
+			    $read_dir = 'R2';
+			} else {
+			    $read_dir = 'UNKNOWN';
+			}
 
 		if ('dna' eq $data_type) {
 			$smp_data->{$subject}->{$sample}->{libraries}->{$lib}->{runlanes}->{$lane}->{fastq}->{$read_dir} = $data_directory . '/' . $fastq;
