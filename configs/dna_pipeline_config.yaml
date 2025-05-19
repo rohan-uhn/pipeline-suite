@@ -1,15 +1,15 @@
 ---
-project_name: PROJECTNAME
-output_dir: /cluster/home/t138377uhn/demo/output/
+project_name: testfoursamples
+output_dir: /cluster/projects/kridelgroup/Rohan/demo/output/
 sample_type: # optional; can be germline or ctdna
-seq_type: exome # must be one of exome, targeted, rna or wgs
+seq_type: wgs # must be one of exome, targeted, rna or wgs
 seq_center: PMGC
 platform: Illumina
 flowcell_type: random # one of random or patterned, depends on the instrument used: https://knowledge.illumina.com/instrumentation/general/instrumentation-general-faq-list/000007786
-hpc_group: kridelgroup
+hpc_group:
 # reference files
 ref_type: hg38 # one of hg38, hg19, GRCh37 or GRCh38 (minimal testing with GRCh37/8)
-reference: /cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa
+reference: /cluster/tools/data/genomes/human/GRCh38/iGenomes/Sequence/WholeGenomeFasta/Homo_sapiens_assembly38.fasta
 baits_bed: 
 targets_bed: 
 gnomad: /cluster/projects/pughlab/references/ExAC/af-only-gnomad.hg38.vcf.gz 
@@ -17,11 +17,11 @@ dbsnp: /cluster/projects/pughlab/references/dbSNP/GRCh38/b151/dbSNP_GRCh38p7_b15
 cosmic: /cluster/projects/pughlab/references/COSMIC/GRCh38/v91/CosmicVariants_full_sorted_chr.vcf.gz
 snp6: /cluster/projects/pughlab/references/ASCAT_refs/GRCh38_SNP6.tsv.gz
 exclude_regions: /cluster/projects/pughlab/references/Delly/excludeTemplates/human.hg38.excl.tsv
-gatk_known_1000g: /cluster/tools/data/genomes/human/hg38/hg38bundle/1000G_phase1.snps.high_confidence.hg38.vcf.gz
-gatk_known_indels: /cluster/tools/data/genomes/human/hg38/hg38bundle/Homo_sapiens_assembly38.known_indels.vcf.gz
-gatk_known_mills: /cluster/tools/data/genomes/human/hg38/hg38bundle/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
-gatk_hapmap: /cluster/tools/data/genomes/human/hg38/hg38bundle/hapmap_3.3.hg38.vcf.gz
-gatk_omni: /cluster/tools/data/genomes/human/hg38/hg38bundle/1000G_omni2.5.hg38.vcf.gz
+gatk_known_1000g: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/1000G_phase1.snps.high_confidence.hg38.vcf.gz
+gatk_known_indels: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/beta/Homo_sapiens_assembly38.known_indels.vcf.gz
+gatk_known_mills: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+gatk_hapmap: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/hapmap_3.3.hg38.vcf.gz
+gatk_omni: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/1000G_omni2.5.hg38.vcf.gz
 contest_hapmap: /cluster/projects/pughlab/references/hapmap/hg38_population_stratified_af_hapmap_3.3.vcf.gz
 svict_gtf: /cluster/projects/pughlab/references/gencode/GRCh38/gencode.v31.annotation.gtf
 mutsig_coverage: /cluster/projects/pughlab/references/MutSigCV/exome_full192.coverage.txt
@@ -72,7 +72,7 @@ fastqc:
 bwa:
     run: Y
     aligner: bwamem
-    reference: /cluster/projects/pughlab/references/bwa_index/hg38/genome.fa
+    reference: /cluster/projects/kridelgroup/resources/Homo_sapiens_BWA_ref_updated_2024/seqs_for_alignment_pipelines/genome.fa
     parameters:
         bwa:
             mem:
