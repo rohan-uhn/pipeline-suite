@@ -82,15 +82,15 @@ bwa:
                 normal: 4
                 tumour: 4
             time:
-                normal: '24:00:00'
-                tumour: '48:00:00'
+                normal: '05:00:00'
+                tumour: '05:00:00'
         sort:
             mem:
                 normal: 4G
                 tumour: 4G
             time:
-                normal: '24:00:00'
-                tumour: '48:00:00'
+                normal: '05:00:00'
+                tumour: '05:00:00'
         index:
             mem:
                 normal: 2G
@@ -109,31 +109,31 @@ bwa:
                 normal: 8G
                 tumour: 12G
             time:
-                normal: '48:00:00'
-                tumour: '48:00:00'
+                normal: '05:00:00'
+                tumour: '05:00:00'
 gatk:
     run: Y
     parameters:
         target_creator:
             java_mem: 5g
             mem: 6G
-            time: '48:00:00'
+            time: '05:00:00'
         realign:
             java_mem: 3g
             mem: 4G
-            time: '72:00:00'
+            time: '05:00:00'
         bqsr:
             java_mem: 11g
             mem: 12G
             time:
-                normal: '48:00:00'
-                tumour: '72:00:00'
+                normal: '05:00:00'
+                tumour: '05:00:00'
         recalibrate:
             java_mem: 11g
             mem: 12G
             time:
-                normal: '48:00:00'
-                tumour: '72:00:00'
+                normal: '05:00:00'
+                tumour: '05:00:00'
 bamqc:
     run: Y
     parameters:
@@ -142,21 +142,21 @@ bamqc:
             threshold: '3.0'
             java_mem: 1g
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
         qc:
             java_mem: 3g
             mem: 4G
-            time: '48:00:00'
+            time: '05:00:00'
         coverage:
             java_mem: 3g
             mem: 4G
-            time: '48:00:00'
+            time: '05:00:00'
         callable_bases:
             min_depth:
                 tumour: 20
                 normal: 15
             mem: 4G
-            time: '48:00:00'
+            time: '05:00:00'
 haplotype_caller:
     run: Y
     chromosomes:
@@ -164,36 +164,36 @@ haplotype_caller:
         haplotype_call:
             java_mem: 3g
             mem: 4G
-            time: '72:00:00'
+            time: '05:00:00'
         combine_gvcfs:
             java_mem: 5g
             mem: 6G
-            time: '5-00:00:00'
+            time: '05:00:00'
         genotype_gvcfs:
             java_mem: 5g
             mem: 6G
-            time: '5-00:00:00'
+            time: '05:00:00'
         vqsr:
             java_mem: 7g
             mem: 8G
-            time: '24:00:00'
+            time: '05:00:00'
         apply_vqsr:
             java_mem: 1g
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
         hard_filtering:
             run: N
             java_mem: 1g
             mem: 2G
-            time: '24:00:00' 
+            time: '05:00:00' 
         filter_recalibrated:
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
         run_vcf2maf: N
         cpsr:
             known_positions: /cluster/projects/pughlab/references/CPSR/PCA_pathVar_integrated_filtered_adjusted_WITH_FANCI_hg38.tsv
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 annotate:
     vcf2maf_path: # /cluster/projects/pughlab/bin/vcf2maf-1.6.17/vcf2maf.pl  ## provide EITHER this or vcf2maf_version above ##
     vep_path: /cluster/tools/software/centos7/vep/98
@@ -202,7 +202,7 @@ annotate:
     buffer_size: 1000
     n_cpus: 4
     mem: 16G
-    time: '12:00:00'
+    time: '05:00:00'
 mutect:
     run: Y
     pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/MuTect/v1.1.5/mutect_v1.1.5_hg38_panel_of_normals_20210330.vcf
@@ -210,15 +210,15 @@ mutect:
         mutect:
             java_mem: 11g
             mem: 12G
-            time: '4-00:00:00'
+            time: '05:00:00'
         filter:
             mem: 4G
-            time: '12:00:00'
+            time: '05:00:00'
         create_pon:
             minN: 2
             java_mem: 3g
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 mutect2:
     run: Y
     pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/Mutect2/v3.8/mutect2_v3.8_hg38_panel_of_normals_20210330.vcf
@@ -227,39 +227,39 @@ mutect2:
         mutect:
             java_mem: 3g
             mem: 4G
-            time: '5-00:00:00' # some WXS can take >14 days to complete if not split by chromosome
+            time: '05:00:00' # some WXS can take >14 days to complete if not split by chromosome
         merge:
             mem: 2G
-            time: '12:00:00'
+            time: '05:00:00'
         filter:
             mem: 1G
-            time: '12:00:00'
+            time: '05:00:00'
         create_pon:
             minN: 2
             java_mem: 3g
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 manta:
     run: Y
     parameters:
         manta:
             mem: 8G
-            time: '24:00:00'
+            time: '05:00:00'
 strelka:
     run: Y
     pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/Strelka/v2.9.10/strelka_v2.9.10_hg38_panel_of_normals_20210330.vcf
     parameters:
         strelka:
             mem: 8G
-            time: '24:00:00'
+            time: '05:00:00'
         filter:
             mem: 2G
-            time: '12:00:00'
+            time: '05:00:00'
         create_pon:
             minN: 2
             java_mem: 3g
             mem: 4G
-            time: '96:00:00'
+            time: '05:00:00'
 varscan:
     run: Y
     pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/VarScan/v2.4.2/varscan_v2.4.2_hg38_panel_of_normals_20210330.vcf
@@ -268,36 +268,36 @@ varscan:
         varscan:
             java_mem: 3g
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
         sequenza:
             cancer_type_prior: all
             ploidy_priors: /cluster/projects/pughlab/src/sequenza_wrapper/PANCAN_ASCAT_ploidy_prob.Rdata
             mem: 6G
-            time: '24:00:00'
+            time: '05:00:00'
         filter:
             mem: 1G
-            time: '12:00:00'
+            time: '05:00:00'
         create_pon:
             minN: 2
             java_mem: 3g
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 somaticsniper:
     run: Y
     pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/1000g_pon.hg38.vcf.gz
     parameters:
         somaticsniper:
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
         pileup:
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
         readcount:
             mem: 1G
-            time: '24:00:00'
+            time: '05:00:00'
         filter:
             mem: 1G
-            time: '24:00:00'
+            time: '05:00:00'
 vardict:
     run: Y
     intervals: /cluster/projects/pughlab/references/intervals/whole_genome_intervals/hg38_wgs_intervals_for_vardict_no_centromere.txt # only for WGS
@@ -307,53 +307,53 @@ vardict:
             # vardict_wgs requires slightly higher mem (~16G) and more time (min 32 hours)
             mem: 12G
             java_mem: 11g
-            time: '12:00:00'
+            time: '05:00:00'
         test_somatic:
             mem: 16G
-            time: '24:00:00'
+            time: '05:00:00'
         filter:
             mem: 1G
-            time: '12:00:00'
+            time: '05:00:00'
         create_pon:
             minN: 2
             java_mem: 3g
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 pindel:
     run: Y
     chromosomes:
     parameters:
         pindel:
             mem: 6G
-            time: '48:00:00'
+            time: '05:00:00'
             n_cpu: 1
         convert:
             filter_depth: 5
             mem: 2G
-            time: '24:00:00'
+            time: '05:00:00'
 gatk_cnv:
     run: Y
     chromosomes:
     parameters:
         readcounts:
             mem: 1G
-            time: '12:00:00'
+            time: '05:00:00'
         create_pon:
             java_mem: 5g
             mem: 6G
-            time: '24:00:00'
+            time: '05:00:00'
         denoise:
             java_mem: 7g
             mem: 8G
-            time: '24:00:00'
+            time: '05:00:00'
         allele_counts:
             java_mem: 7g
             mem: 8G
-            time: '24:00:00'
+            time: '05:00:00'
         model:
             java_mem: 3g
             mem: 4G
-            time: '24:00:00'
+            time: '05:00:00'
 delly:
     run: Y
     parameters:
@@ -382,7 +382,7 @@ novobreak:
             time: '24:00:00'
         postprocess:
             mem: 12G
-            time: '5-00:00:00'
+            time: '05:00:00'
             n_cpus: 4
         filter:
             mem: 4G
@@ -444,7 +444,7 @@ msi_sensor:
             time: '04:00:00'
         baseline: # only required if tumour-only samples are also present
             mem: 4G
-            time: '5-00:00:00'
+            time: '05:00:00'
         sensor: # some WGS require up to 36G, but most (WXS/WGS/targeted) are fine with 4G
             mem: 4G
             time: '24:00:00'
