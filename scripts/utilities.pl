@@ -312,13 +312,14 @@ sub validate_ref {
 		);
 
 	my $ref_file_base;
-
-	if ( ('bwa' eq $args{pipeline}) || ('gatk' eq $args{pipeline}) || ('variant_call' eq $args{pipeline}) ) {
-		$ref_file_base = ($args{reference} =~ s/\.fa$//r);
+	if ('bwa' eq $args{pipeline}) {
+	    $ref_file_base = ($args{reference} =~ s/\.fasta$//r);
+	} elsif (('gatk' eq $args{pipeline}) || ('variant_call' eq $args{pipeline})) {
+	    $ref_file_base = ($args{reference} =~ s/\.fa$//r);
 	} else {
-		$ref_file_base = $args{reference};
+	    $ref_file_base = $args{reference};
 	}
-
+ 
 	foreach my $ext (@{$args{exts}}) {
 		unless (-e $ref_file_base . $ext) { die("Missing reference file: " . $ref_file_base . $ext); }
 	}
