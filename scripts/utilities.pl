@@ -406,18 +406,6 @@ sub write_script {
 			}
 		}
 
-		my ($days, $hours);
-		if ($args{max_time} =~ m/(\d+)(-)(\d+)/) {
-			$days = $1;
-			$hours = $3;
-			if (
-				( ($days == 5) && ($hours ne '00') ) ||
-				( ($days > 5) )
-				) {
-				$job_params .= "\n#SBATCH -p long";
-			}
-		}
-
 		for (my $i=0; $i < scalar (@{$args{extra_args}}); $i++) {
 			if (defined($args{extra_args}->[$i])) {
 				$job_params .= "\n#SBATCH " . $args{extra_args}->[$i];
