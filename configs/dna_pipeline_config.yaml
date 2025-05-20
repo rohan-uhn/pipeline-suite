@@ -29,7 +29,7 @@ mutsig_covariates: /cluster/projects/pughlab/references/MutSigCV/gene.covariates
 mutsig_categories: /cluster/projects/pughlab/references/MutSigCV/mutation_type_dictionary_file.txt
 mutsig_refs: /cluster/projects/pughlab/references/MutSigCV/chr_files_hg38
 # tool versions
-perl_version: 5.30.0
+perl_version: 5.40.0
 fastqc_version: 0.11.5
 bwa_version: 0.7.15
 samtools_version: 1.9
