@@ -32,7 +32,7 @@ mutsig_refs: /cluster/projects/pughlab/references/MutSigCV/chr_files_hg38
 perl_version: 5.40.0
 fastqc_version: 0.11.5
 bwa_version: 0.7.15
-samtools_version: 1.9
+samtools_version: 1.20
 picard_version: 2.6.0
 sambamba_version: 0.7.0 
 bedtools_version: 2.27.1
