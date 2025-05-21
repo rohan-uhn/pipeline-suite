@@ -13,7 +13,7 @@ reference: /cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeF
 baits_bed: 
 targets_bed: 
 gnomad: /cluster/projects/pughlab/references/ExAC/af-only-gnomad.hg38.vcf.gz 
-dbsnp: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/dbsnp151_b38/All_20180418.vcf.gz
+dbsnp: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/dbsnp_146.hg38.vcf.gz
 cosmic: /cluster/projects/pughlab/references/COSMIC/GRCh38/v91/CosmicVariants_full_sorted_chr.vcf.gz
 snp6: /cluster/projects/pughlab/references/ASCAT_refs/GRCh38_SNP6.tsv.gz
 exclude_regions: /cluster/projects/pughlab/references/Delly/excludeTemplates/human.hg38.excl.tsv
