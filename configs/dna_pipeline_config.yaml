@@ -2,7 +2,7 @@
 project_name: testfoursamples
 output_dir: /cluster/projects/kridelgroup/Rohan/demo/output/
 sample_type: # optional; can be germline or ctdna
-seq_type: targeted # must be one of exome, targeted, rna or wgs
+seq_type: wgs # must be one of exome, targeted, rna or wgs
 seq_center: PMGC
 platform: Illumina
 flowcell_type: random # one of random or patterned, depends on the instrument used: https://knowledge.illumina.com/instrumentation/general/instrumentation-general-faq-list/000007786
@@ -11,23 +11,23 @@ hpc_group:
 ref_type: hg38 # one of hg38, hg19, GRCh37 or GRCh38 (minimal testing with GRCh37/8)
 reference: /cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa 
 baits_bed: 
-targets_bed: /cluster/home/t138377uhn/hglft_genome_35b6a0_757d20.bed
-gnomad: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/references/af-only-gnomad.hg38.vcf.gz # https://storage.googleapis.com/gatk-best-practices/somatic-hg38/af-only-gnomad.hg38.vcf.gz
-dbsnp: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/dbsnp_146.hg38.vcf.gz #
-cosmic: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/references/CosmicVariants_full_sorted_chr.vcf.gz # COSMIC Genome Screens Mutant Sorted and Indexed
-snp6: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/references/GRCh38_SNP6.tsv.gz # https://raw.githubusercontent.com/CompEpigen/ezASCAT/main/inst/extdata/GRCh38_SNP6.tsv.gz
-exclude_regions: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/references/human.hg38.excl.tsv # https://raw.githubusercontent.com/dellytools/delly/main/excludeTemplates/human.hg38.excl.tsv
-gatk_known_1000g: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/1000G_phase1.snps.high_confidence.hg38.vcf.gz #
-gatk_known_indels: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/beta/Homo_sapiens_assembly38.known_indels.vcf.gz #
-gatk_known_mills: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz #
-gatk_hapmap: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/hapmap_3.3.hg38.vcf.gz #
-gatk_omni: /cluster/projects/kridelgroup/resources/GATK_bundle/homo_sapiens_GRCh38/1000G_omni2.5.hg38.vcf.gz #
-contest_hapmap: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/references/hapmap_3.3.hg38.vcf.gz # https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?inv=1&invt=Abydtg&prefix=&forceOnObjectsSortingFiltering=false
-svict_gtf: /cluster/projects/pughlab/references/gencode/GRCh38/gencode.v31.annotation.gtf 
-mutsig_coverage: /cluster/projects/pughlab/references/MutSigCV/exome_full192.coverage.txt
-mutsig_covariates: /cluster/projects/pughlab/references/MutSigCV/gene.covariates.txt
-mutsig_categories: /cluster/projects/pughlab/references/MutSigCV/mutation_type_dictionary_file.txt
-mutsig_refs: /cluster/projects/pughlab/references/MutSigCV/chr_files_hg38 # https://datasets.genepattern.org/?prefix=gpftp/module_support_files/MutSigCV_1.4/chr_files/hg19/
+targets_bed: 
+gnomad: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/af-only-gnomad.hg38.vcf.gz # 
+dbsnp: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/dbSNP_GRCh38p7_b151_common_chr.vcf.gz # 
+cosmic: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/CosmicVariants_full_sorted_chr.vcf.gz #
+snp6: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/GRCh38_SNP6.tsv.gz #
+exclude_regions: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/human.hg38.excl.tsv #
+gatk_known_1000g: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/gatk_bundle/1000G_phase1.snps.high_confidence.hg38.vcf.gz #
+gatk_known_indels: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/gatk_bundle/Homo_sapiens_assembly38.known_indels.vcf.gz #
+gatk_known_mills: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/gatk_bundle/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz #
+gatk_hapmap: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/gatk_bundle/hapmap_3.3.hg38.vcf.gz #
+gatk_omni: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/gatk_bundle/1000G_omni2.5.hg38.vcf.gz #
+contest_hapmap: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/hg38_population_stratified_af_hapmap_3.3.vcf.gz #
+svict_gtf: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/gencode.v31.annotation.gtf #
+mutsig_coverage: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mutsigcv_files/exome_full192.coverage.txt #
+mutsig_covariates: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mutsigcv_files/gene.covariates.txt #
+mutsig_categories: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mutsigcv_files/mutation_type_dictionary_file.txt #
+mutsig_refs: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mutsigcv_files/chr_files_hg38 #
 # tool versions
 perl_version: 5.40.0
 fastqc_version: 0.11.5
@@ -191,21 +191,21 @@ haplotype_caller:
             time: '05:00:00'
         run_vcf2maf: N
         cpsr:
-            known_positions: /cluster/projects/pughlab/references/CPSR/PCA_pathVar_integrated_filtered_adjusted_WITH_FANCI_hg38.tsv
+            known_positions: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/PCA_pathVar_integrated_filtered_adjusted_WITH_FANCI_hg38.tsv
             mem: 4G
             time: '05:00:00'
 annotate:
     vcf2maf_path: # /cluster/projects/pughlab/bin/vcf2maf-1.6.17/vcf2maf.pl  ## provide EITHER this or vcf2maf_version above ##
-    vep_path: /cluster/tools/software/centos7/vep/98
-    vep_data: /cluster/projects/pughlab/references/VEP_cache/98
-    filter_vcf: /cluster/projects/pughlab/references/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz 
+    vep_path: cluster/tools/software/centos7/vep/98
+    vep_data: /cluster/projects/kridelgroup/resources/VEP/GRCh38/98
+    filter_vcf: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz 
     buffer_size: 1000
     n_cpus: 4
     mem: 16G
     time: '05:00:00'
 mutect:
     run: Y
-    pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/MuTect/v1.1.5/mutect_v1.1.5_hg38_panel_of_normals_20210330.vcf
+    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
     parameters:
         mutect:
             java_mem: 11g
@@ -221,7 +221,7 @@ mutect:
             time: '05:00:00'
 mutect2:
     run: Y
-    pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/Mutect2/v3.8/mutect2_v3.8_hg38_panel_of_normals_20210330.vcf
+    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
 #    chromosomes: chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY
     parameters:
         mutect:
@@ -247,7 +247,7 @@ manta:
             time: '05:00:00'
 strelka:
     run: Y
-    pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/Strelka/v2.9.10/strelka_v2.9.10_hg38_panel_of_normals_20210330.vcf
+    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
     parameters:
         strelka:
             mem: 8G
@@ -262,7 +262,7 @@ strelka:
             time: '05:00:00'
 varscan:
     run: Y
-    pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/VarScan/v2.4.2/varscan_v2.4.2_hg38_panel_of_normals_20210330.vcf
+    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
 #    chromosomes: chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY
     parameters:
         varscan:
@@ -271,7 +271,7 @@ varscan:
             time: '05:00:00'
         sequenza:
             cancer_type_prior: all
-            ploidy_priors: /cluster/projects/pughlab/src/sequenza_wrapper/PANCAN_ASCAT_ploidy_prob.Rdata
+            ploidy_priors: //cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/PANCAN_ASCAT_ploidy_prob.Rdata
             mem: 6G
             time: '05:00:00'
         filter:
@@ -284,7 +284,7 @@ varscan:
             time: '05:00:00'
 somaticsniper:
     run: Y
-    pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/1000g_pon.hg38.vcf.gz
+    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
     parameters:
         somaticsniper:
             mem: 4G
@@ -301,7 +301,7 @@ somaticsniper:
 vardict:
     run: Y
     intervals: /cluster/projects/pughlab/references/intervals/whole_genome_intervals/hg38_wgs_intervals_for_vardict_no_centromere.txt # only for WGS
-    pon: /cluster/projects/pughlab/references/panel_of_normals/hg38/VarDict/v1.7.0/vardict_v1.7.0_hg38_panel_of_normals_20210330.vcf 
+    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf 
     parameters:
         vardict:
             # vardict_wgs requires slightly higher mem (~16G) and more time (min 32 hours)
