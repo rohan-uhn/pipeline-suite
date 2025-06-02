@@ -196,7 +196,7 @@ haplotype_caller:
             time: '05:00:00'
 annotate:
     vcf2maf_path: # /cluster/projects/pughlab/bin/vcf2maf-1.6.17/vcf2maf.pl  ## provide EITHER this or vcf2maf_version above ##
-    vep_path: cluster/tools/software/centos7/vep/98
+    vep_path: /cluster/tools/software/centos7/vep/98
     vep_data: /cluster/projects/kridelgroup/resources/VEP/GRCh38/98
     filter_vcf: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz 
     buffer_size: 1000
@@ -205,7 +205,7 @@ annotate:
     time: '05:00:00'
 mutect:
     run: Y
-    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
+    pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/mutecchange/1000g_pon.hg38.fixed.vcf
     parameters:
         mutect:
             java_mem: 11g
@@ -283,7 +283,7 @@ varscan:
             mem: 4G
             time: '05:00:00'
 somaticsniper:
-    run: Y
+    run: N
     pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
     parameters:
         somaticsniper:
