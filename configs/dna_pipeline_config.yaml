@@ -29,7 +29,7 @@ mutsig_covariates: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_
 mutsig_categories: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mutsigcv_files/mutation_type_dictionary_file.txt #
 mutsig_refs: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mutsigcv_files/chr_files_hg38 #
 # tool versions
-perl_version: 5.40.0
+perl_version: 5.26.2
 fastqc_version: 0.11.5
 bwa_version: 0.7.15
 samtools_version: 1.20
