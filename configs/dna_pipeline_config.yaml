@@ -57,7 +57,7 @@ pindel_version: 0.2.5b8
 mavis_version: 2.2.5
 cpsr_version: 0.6.1
 pcgr_version: 0.9.1
-vcf2maf_version: 1.6.17 
+vcf2maf_version: #1.6.17 
 msi_sensor_version: msisensor-pro/1.2.0
 r_version: 4.1.0
 mutsigcv_version: 1.4
@@ -195,7 +195,7 @@ haplotype_caller:
             mem: 4G
             time: '05:00:00'
 annotate:
-    vcf2maf_path: # /cluster/projects/pughlab/bin/vcf2maf-1.6.17/vcf2maf.pl  ## provide EITHER this or vcf2maf_version above ##
+    vcf2maf_path: /cluster/home/t138377uhn/miniconda/envs/vep_env/bin/vcf2maf.pl  ## provide EITHER this or vcf2maf_version above ##
     vep_path: /cluster/tools/software/centos7/vep/98
     vep_data: /cluster/projects/kridelgroup/resources/VEP/GRCh38/98
     filter_vcf: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz 
