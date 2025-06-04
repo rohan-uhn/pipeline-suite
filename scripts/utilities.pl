@@ -774,8 +774,7 @@ EOF
   --vep-data $vep_data \\
   --vep-forks 4 \\
   --buffer-size 1000 \\
-  --tmp-dir $args{tmp_dir} \\
-  --filter-vcf $filter_vcf
+  --tmp-dir $args{tmp_dir}
 EOF
 
     return $cmd;
