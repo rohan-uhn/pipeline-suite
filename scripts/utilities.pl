@@ -755,7 +755,6 @@ conda activate vep_env
 
 module load samtools/1.20
 module load tabix
-module load vcf2maf/1.6.17
 
 vcf2maf.pl \\
   --species homo_sapiens \\
