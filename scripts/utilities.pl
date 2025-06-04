@@ -735,64 +735,55 @@ sub _get_files {
 
 # format command to convert annotated VCF to MAF
 sub get_vcf2maf_command {
-	my $args = {
-		input		=> undef,
-		tumour_id	=> undef,
-		tumour_vcf_id	=> undef,
-		normal_id	=> undef,
-		reference	=> undef,
-		ref_type	=> undef,
-		output		=> undef,
-		tmp_dir		=> undef,
-		parameters	=> undef,
-		@_
-		};
+    my %args = (
+        input      => undef,
+        output     => undef,
+        tumour_id  => undef,
+        normal_id  => undef,
+        reference  => undef,
+        tmp_dir    => undef,
+        parameters => undef,
+        @_
+    );
 
-	my $ref_type;
-	if ('hg19' eq $args->{ref_type}) {
-		$ref_type = 'GRCh37';
-		} elsif ('hg38' eq $args->{ref_type}) {
-		$ref_type = 'GRCh38';
-		} elsif ( ('GRCh38' eq $args->{ref_type}) || ('GRCh37' eq $args->{ref_type}) ) {
-		$ref_type = $args->{ref_type};
-		}
+    my $vep_data   = $args{parameters}->{vep_data} || "/cluster/projects/kridelgroup/resources/VEP/GRCh38/98";
+    my $filter_vcf = $args{parameters}->{filter_vcf};  # Optional
 
-	my $maf_command = 'vcf2maf.pl';
-	if (defined($args->{parameters}->{vcf2maf_path})) {
-		$maf_command = "perl $args->{parameters}->{vcf2maf_path}"; 
-		}
+    my $cmd = <<"EOF";
+source /cluster/home/t138377uhn/miniconda/etc/profile.d/conda.sh
+conda activate vep_env
 
-	$maf_command .= ' ' . join(' ',
-		'--species homo_sapiens',
-		'--ncbi-build', $ref_type,
-		'--ref-fasta', $args->{reference},
-		'--input-vcf', $args->{input},
-		'--output-maf', $args->{output},
-		'--tumor-id', $args->{tumour_id},
-		'--vep-path', $args->{parameters}->{vep_path},
-		'--vep-data', $args->{parameters}->{vep_data},
-		'--vep-forks', $args->{parameters}->{n_cpus},
-		'--filter-vcf', $args->{parameters}->{filter_vcf},
-		'--buffer-size', $args->{parameters}->{buffer_size},
-		'--tmp-dir', $args->{tmp_dir}
-		);
+module load samtools/1.20
+module load tabix
+module load vcf2maf/1.6.17
 
-	if (defined($args->{normal_id})) {
-		$maf_command .= " --normal-id $args->{normal_id}";
+vcf2maf.pl \\
+  --species homo_sapiens \\
+  --ncbi-build GRCh38 \\
+  --ref-fasta $args{reference} \\
+  --input-vcf $args{input} \\
+  --output-maf $args{output} \\
+  --tumor-id $args{tumour_id} \\
+EOF
 
-		if ($args->{input} =~ m/Strelka|VarScan|MuTect2|SomaticSniper/) {
-			$maf_command .= " --vcf-tumor-id TUMOR --vcf-normal-id NORMAL";
-			}
-	} else {
-		if ($args->{input} =~ m/VarScan/) {
-			$maf_command .= " --vcf-tumor-id Sample1";
-		}
-		if ( (defined($args->{tumour_vcf_id})) && ($args->{input} =~ m/MuTect2|Strelka/)) {
-			$maf_command .= " --vcf-tumor-id $args->{tumour_vcf_id}";
-		}
-	}
+    # Add normal ID if defined (optional for tumor-normal mode)
+    if (defined $args{normal_id}) {
+        $cmd .= "  --normal-id $args{normal_id} \\\n";
+    }
 
-	return($maf_command);
-	}
+    $cmd .= <<"EOF";
+  --vep-path \$(which vep | xargs dirname) \\
+  --vep-data $vep_data \\
+  --vep-forks 4 \\
+  --buffer-size 1000 \\
+  --tmp-dir $args{tmp_dir}
+EOF
 
+    # Optional: include filter-vcf if defined
+    if (defined $filter_vcf) {
+        $cmd .= " \\\n  --filter-vcf $filter_vcf";
+    }
+
+    return $cmd;
+}
 1;
