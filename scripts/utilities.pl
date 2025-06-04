@@ -390,7 +390,7 @@ sub write_script {
 		$job_params = "#SBATCH " . join("\n#SBATCH ",
 			'--job-name="' . $args{name} . '"',
 			'-D ' . $job_log_dir,
-			'-t 10:00:00',
+			'-t 1:00:00',
 			'--mem ' . $args{mem},
 			'-c ' . $args{cpus_per_task}
 			);
@@ -747,7 +747,7 @@ sub get_vcf2maf_command {
     );
 
     my $vep_data   = $args{parameters}->{vep_data} || "/cluster/projects/kridelgroup/resources/VEP/GRCh38/98";
-    my $filter_vcf = $args{parameters}->{filter_vcf};  # Optional
+    my $filter_vcf = $args{parameters}->{filter_vcf};  # Required now
 
     my $cmd = <<"EOF";
 source /cluster/home/t138377uhn/miniconda/etc/profile.d/conda.sh
@@ -766,7 +766,6 @@ vcf2maf.pl \\
   --tumor-id $args{tumour_id} \\
 EOF
 
-    # Add normal ID if defined (optional for tumor-normal mode)
     if (defined $args{normal_id}) {
         $cmd .= "  --normal-id $args{normal_id} \\\n";
     }
@@ -776,13 +775,9 @@ EOF
   --vep-data $vep_data \\
   --vep-forks 4 \\
   --buffer-size 1000 \\
-  --tmp-dir $args{tmp_dir}
+  --tmp-dir $args{tmp_dir} \\
+  --filter-vcf $filter_vcf
 EOF
-
-    # Optional: include filter-vcf if defined
-    if (defined $filter_vcf) {
-        $cmd .= " \\\n  --filter-vcf $filter_vcf";
-    }
 
     return $cmd;
 }
