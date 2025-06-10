@@ -83,8 +83,8 @@ sub main {
 	if ('wgs' eq $tool_data->{seq_type}) { $max_time = '21-00:00:00'; }
 	if ('targeted' eq $tool_data->{seq_type}) { $max_time = '3-00:00:00'; }
 
-	my $perl = '/cluster/home/t138377uhn/miniconda/envs/vep_env/bin/perl';
-	my $samtools = 'samtools/' . $tool_data->{samtools_version};
+	my $perl = 'perl/' . $tool_data->{perl_version};
+ 	my $samtools = 'samtools/' . $tool_data->{samtools_version};
 
 	# get optional HPC group
 	my $hpc_group = defined($tool_data->{hpc_group}) ? "-A $tool_data->{hpc_group}" : undef;
