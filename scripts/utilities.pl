@@ -756,11 +756,13 @@ conda activate vep_env
 module load samtools/1.20
 module load tabix
 
+use strict;
+use warnings;
+
 my $perl_path = `which perl`;
 chomp($perl_path);
 print "Using Perl: $perl_path\n";
 
-# Test if BioPerl is loaded
 eval {
     require Bio::PrimarySeqI;
     print "BioPerl OK\n";
