@@ -753,14 +753,22 @@ sub get_vcf2maf_command {
 source /cluster/home/t138377uhn/miniconda/etc/profile.d/conda.sh
 conda activate vep_env
 
-echo "Using Perl: $(which perl)"
-perl -MBio::PrimarySeqI -e 'print "BioPerl OK\n"' || { echo "BioPerl module not found"; exit 1; }
-
 module load samtools/1.20
 module load tabix
 
-echo "Using Perl: $(which perl)"
-perl -MBio::PrimarySeqI -e 'print "BioPerl OK\n"' || { echo "BioPerl module not found"; exit 1; }
+my $perl_path = `which perl`;
+chomp($perl_path);
+print "Using Perl: $perl_path\n";
+
+# Test if BioPerl is loaded
+eval {
+    require Bio::PrimarySeqI;
+    print "BioPerl OK\n";
+    1;
+} or do {
+    print "BioPerl NOT found: $@\n";
+    exit 1;
+};
 
 vcf2maf.pl \\
   --species homo_sapiens \\
