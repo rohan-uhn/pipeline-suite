@@ -1651,7 +1651,7 @@ sub main {
 					log_dir => $log_directory,
 					name    => 'run_vcf2maf_and_VEP_' . $sample,
 					cmd     => $vcf2maf_cmd,
-					modules => ['perl', $samtools, 'tabix', $vcf2maf],
+					modules => [$samtools, 'tabix'],
 					dependencies	=> join(':', @dependencies),
 					cpus_per_task	=> $tool_data->{annotate}->{n_cpus},
 					max_time	=> $tool_data->{annotate}->{time},
