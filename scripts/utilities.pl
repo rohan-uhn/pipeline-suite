@@ -302,6 +302,21 @@ sub error_checking {
 	return($tool_data);
 }
 
+sub check_perl_and_bioperl {
+    my $perl_path = `which perl`;
+    chomp($perl_path);
+    print "Using Perl: $perl_path\n";
+
+    eval {
+        require Bio::PrimarySeqI;
+        print "BioPerl OK\n";
+        1;
+    } or do {
+        print "BioPerl NOT found: $@\n";
+        exit 1;
+    };
+}
+
 # function to ensure all necessary reference files are available
 sub validate_ref {
 	my %args = (
@@ -756,21 +771,7 @@ conda activate vep_env
 module load samtools/1.20
 module load tabix
 
-use strict;
-use warnings;
-
-my $perl_path = `which perl`;
-chomp($perl_path);
-print "Using Perl: $perl_path\n";
-
-eval {
-    require Bio::PrimarySeqI;
-    print "BioPerl OK\n";
-    1;
-} or do {
-    print "BioPerl NOT found: $@\n";
-    exit 1;
-};
+check_perl_and_bioperl();
 
 vcf2maf.pl \\
   --species homo_sapiens \\
