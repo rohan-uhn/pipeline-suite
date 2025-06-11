@@ -134,7 +134,7 @@ setwd(arguments$output);
 
 ### FORMAT DATA ####################################################################################
 # create minimal tables for overlap
-keep.fields <- c('Tumor_Sample_Barcode','Matched_Norm_Sample_Barcode','Chromosome','Start_Position','End_Position','Reference_Allele','Tumor_Seq_Allele2','Variant_Type');
+keep.fields <- c('Tumor_Sample_Barcode','Matched_Norm_Sample_Barcode','Chromosome','Start_Position','End_Position','Reference_Allele','Tumor_Seq_Allele2','Variant_Type','Hugo_Symbol');
 
 combined.data <- data.frame();
 
