@@ -163,33 +163,26 @@ plot.objects <- list();
 
 # plot per-tool counts
 for (tool in tool.list) {
-
-	if (tool %in% names(plot.data$per_tool)) {
-    if (!all(is.na(plot.data$per_tool[[tool]]))) {
-        plot.objects[[tool]] <- create.barplot(
-            get(tool) ~ Tumor_Sample_Barcode | tool,
-            plot.data$per_tool,
-            ...
-        )
+    if (tool %in% names(plot.data$per_tool)) {
+        if (!all(is.na(plot.data$per_tool[[tool]]))) {
+            plot.objects[[tool]] <- create.barplot(
+                as.formula(paste(tool, "~ Tumor_Sample_Barcode | tool")),
+                plot.data$per_tool,
+                ylab.label = NULL,
+                xlab.label = NULL,
+                yaxis.cex = 0.8,
+                xaxis.lab = rep('', nrow(plot.data$per_tool)),
+                yaxis.tck = c(0.5,0),
+                xaxis.tck = 0,
+                yaxis.fontface = 'plain'
+            )
+        } else {
+            message(tool, " has only NA values; skipping plot.")
+        }
     } else {
-        message(tool, " has only NA values; skipping plot.")
+        message(tool, " not found in per_tool data; skipping plot.")
     }
-} else {
-    message(tool, " not found in per_tool data; skipping plot.")
 }
-
-	plot.objects[[tool]] <- create.barplot(
-		get(tool) ~ Tumor_Sample_Barcode | tool,
-		plot.data$per_tool,
-		ylab.label = NULL,
-		xlab.label = NULL,
-		yaxis.cex = 0.8,
-		xaxis.lab = rep('',nrow(plot.data$per_tool)),
-		yaxis.tck = c(0.5,0),
-		xaxis.tck = 0,
-		yaxis.fontface = 'plain'
-		);
-	}
 
 # create a legend (up to max tools used)
 overlap.colour.scheme <- c(default.colours(6,'seq.greenblue'),'black');
@@ -237,7 +230,7 @@ create.multipanelplot(
 	width = 8,
 	resolution = 200,
 	filename = generate.filename(arguments$project, 'mutation_overlap','png'),
-	plot.objects.heights <- c(rep(1, length(plot.objects) - 1), 2.5),
+plot.objects.heights <- c(rep(1, length(plot.objects) - 1), 2.5),
 	left.legend.padding = 0,
 	right.legend.padding = 0,
 	top.legend.padding = 0,
