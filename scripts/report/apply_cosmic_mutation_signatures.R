@@ -3,6 +3,7 @@
 
 ### FUNCTIONS ######################################################################################
 # function to generate a standardized filename
+.libPaths("~/Rlibs")
 generate.filename <- function(project.stem, file.core, extension, include.date = TRUE) {
 
 	# build up the filename
