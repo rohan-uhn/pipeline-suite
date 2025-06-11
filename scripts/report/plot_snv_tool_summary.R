@@ -164,6 +164,20 @@ plot.objects <- list();
 # plot per-tool counts
 for (tool in tool.list) {
 
+	if (tool %in% names(plot.data$per_tool)) {
+    if (!all(is.na(plot.data$per_tool[[tool]]))) {
+        plot.objects[[tool]] <- create.barplot(
+            get(tool) ~ Tumor_Sample_Barcode | tool,
+            plot.data$per_tool,
+            ...
+        )
+    } else {
+        message(tool, " has only NA values; skipping plot.")
+    }
+} else {
+    message(tool, " not found in per_tool data; skipping plot.")
+}
+
 	plot.objects[[tool]] <- create.barplot(
 		get(tool) ~ Tumor_Sample_Barcode | tool,
 		plot.data$per_tool,
@@ -223,7 +237,7 @@ create.multipanelplot(
 	width = 8,
 	resolution = 200,
 	filename = generate.filename(arguments$project, 'mutation_overlap','png'),
-	plot.objects.heights = c(rep(1,tool.count),2.5),
+	plot.objects.heights <- c(rep(1, length(plot.objects) - 1), 2.5),
 	left.legend.padding = 0,
 	right.legend.padding = 0,
 	top.legend.padding = 0,
