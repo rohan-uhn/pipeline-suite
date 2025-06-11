@@ -449,7 +449,7 @@ msi_sensor:
             mem: 4G
             time: '05:00:00'
 summarize_steps:
-    lib_path: '/cluster/projects/pughlab/src/r_lib/library/4.1/'
+    lib_path: '/cluster/home/t138377uhn/Rlibs'
     run_cosmic_sbs: # note that signatures (path) takes priority over cosmic_version
         run: Y
         signatures: #/cluster/projects/pughlab/references/COSMIC/Mutational_Sigatures/COSMIC_v3.2_SBS_GRCh38.txt
