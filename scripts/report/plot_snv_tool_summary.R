@@ -216,9 +216,6 @@ plot.objects[['overlap']] <- create.barplot(
 		)			
 	);
 
-print(names(plot.objects))
-print(length(plot.objects))
-print(length(c(rep(1,tool.count), 2.5)))
 # combine them!
 create.multipanelplot(
 	plot.objects = plot.objects,
