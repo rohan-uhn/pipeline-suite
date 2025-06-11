@@ -230,12 +230,12 @@ create.multipanelplot(
 	width = 8,
 	resolution = 200,
 	filename = generate.filename(arguments$project, 'mutation_overlap','png'),
-plot.objects.heights <- c(rep(1, length(plot.objects) - 1), 2.5),
+	plot.objects.heights = c(rep(1, length(plot.objects) - 1), 2.5),
 	left.legend.padding = 0,
 	right.legend.padding = 0,
 	top.legend.padding = 0,
 	bottom.legend.padding = 0,
-	y.spacing = c(rep(-2.5,6),-1),
+	y.spacing = c(rep(-2.5, length(plot.objects) - 1), -1),
 	ylab.label = paste(
 		paste(rep(' ', 50), collapse = ''),
 		'Somatic Variant Count (SNVs and INDELs)'
