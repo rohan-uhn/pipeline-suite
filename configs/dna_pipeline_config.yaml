@@ -76,8 +76,8 @@ bwa:
     parameters:
         bwa:
             mem:
-                normal: 8G
-                tumour: 8G
+                normal: 16G
+                tumour: 16G
             n_cpus:
                 normal: 4
                 tumour: 4
