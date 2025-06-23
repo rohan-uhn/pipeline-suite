@@ -324,12 +324,12 @@ pindel:
     chromosomes:
     parameters:
         pindel:
-            mem: 12G
+            mem: 24G
             time: '05:00:00'
             n_cpu: 1
         convert:
             filter_depth: 5
-            mem: 12G
+            mem: 24G
             time: '05:00:00'
 gatk_cnv:
     run: Y
