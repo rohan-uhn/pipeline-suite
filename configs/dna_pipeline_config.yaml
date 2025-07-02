@@ -64,13 +64,13 @@ mutsigcv_version: 1.4
 mcr_path: /cluster/tools/software/MCR/8.1/v81
 # tool specific parameters
 fastqc:
-    run: Y
+    run: N
     parameters:
         fastqc:
             mem: 2G
             time: '05:00:00'
 bwa:
-    run: Y
+    run: N
     aligner: bwamem
     reference: /cluster/projects/kridelgroup/resources/Homo_sapiens_BWA_ref_updated_2024/seqs_for_alignment_pipelines/genome.fa
     parameters:
@@ -135,7 +135,7 @@ gatk:
                 normal: '05:00:00'
                 tumour: '05:00:00'
 bamqc:
-    run: Y
+    run: N
     parameters:
         contest: # no longer necessary as gatk's calculateContamination is now included in the other 'qc' steps
             run: N
@@ -158,7 +158,7 @@ bamqc:
             mem: 4G
             time: '05:00:00'
 haplotype_caller:
-    run: Y
+    run: N
     chromosomes:
     parameters:
         haplotype_call:
@@ -204,7 +204,7 @@ annotate:
     mem: 16G
     time: '05:00:00'
 mutect:
-    run: Y
+    run: N
     pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/mutecchange/1000g_pon.hg38.fixed.vcf
     parameters:
         mutect:
@@ -240,13 +240,13 @@ mutect2:
             mem: 4G
             time: '05:00:00'
 manta:
-    run: Y
+    run: N
     parameters:
         manta:
             mem: 8G
             time: '05:00:00'
 strelka:
-    run: Y
+    run: N
     pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
     parameters:
         strelka:
@@ -261,7 +261,7 @@ strelka:
             mem: 4G
             time: '05:00:00'
 varscan:
-    run: Y
+    run: N
     pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf
 #    chromosomes: chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY
     parameters:
@@ -299,7 +299,7 @@ somaticsniper:
             mem: 1G
             time: '05:00:00'
 vardict:
-    run: Y
+    run: N
     intervals: /cluster/projects/pughlab/references/intervals/whole_genome_intervals/hg38_wgs_intervals_for_vardict_no_centromere.txt # only for WGS
     pon: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/panel_of_normals/1000g_pon.hg38.vcf 
     parameters:
@@ -320,7 +320,7 @@ vardict:
             mem: 4G
             time: '05:00:00'
 pindel:
-    run: Y
+    run: N
     chromosomes:
     parameters:
         pindel:
@@ -332,7 +332,7 @@ pindel:
             mem: 24G
             time: '05:00:00'
 gatk_cnv:
-    run: Y
+    run: N
     chromosomes:
     parameters:
         readcounts:
@@ -355,7 +355,7 @@ gatk_cnv:
             mem: 4G
             time: '05:00:00'
 delly:
-    run: Y
+    run: N
     parameters:
         call:
             mem: 8G
@@ -370,7 +370,7 @@ delly:
             mem: 2G
             time: '05:00:00'
 novobreak:
-    run: Y
+    run: N
     chromosomes:
     parameters:
         novobreak:
@@ -394,7 +394,7 @@ svict:
             mem: 16G
             time: '05:00:00'
 panelcn_mops:
-    run: Y # only for targeted panel
+    run: N # only for targeted panel
     pon: # ignored if create_pon:run:Y
     parameters:
         run_cohort: Y
@@ -424,7 +424,7 @@ ascat:
             time: '05:00:00'
             n_cpus: 1
 mavis:
-    run: Y
+    run: N
     mem: 4G # increase this if the patient has multiple tumours and/or many SV callers were run
     mavis_mem_limit: # in Mb, default is 16000; increase if individual steps are running out of memory
     mavis_time_limit: # in seconds, default is 57600 ; increase if individual steps are running out of time
@@ -437,7 +437,7 @@ mavis:
     mavis_draw_fusions_only: false
     mavis_aligner: 'bwa mem'
 msi_sensor:
-    run: Y
+    run: N
     parameters:
         scan:
             mem: 1G
