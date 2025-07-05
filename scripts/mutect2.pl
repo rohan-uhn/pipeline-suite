@@ -85,7 +85,7 @@ sub get_mutect_pon_command {
 		if (defined($args{intervals})) {
 			$mutect_command .= ' ' . join(' ',
 				'--intervals', $args{intervals},
-				'--interval_padding 100'
+				'--interval-padding 100'
 				);
 			}
 		}
@@ -114,7 +114,7 @@ sub get_split_mutect_pon_command {
 		'--enable_strand_artifact_filter',
 		'--out', $args{output_stem} . '_$CHROM.vcf',
 		'--intervals', '$CHROM',
-		'--interval_padding 100'
+		'--interval-padding 100'
 		);
 
 	if (defined($dbsnp)) {
@@ -219,7 +219,7 @@ sub get_mutect_command {
 	if (defined($args{intervals})) {
 		$mutect_command .= ' ' . join(' ',
 			'--intervals', $args{intervals},
-			'--interval_padding 100'
+			'--interval-padding 100'
 			);
 		}
 
@@ -245,7 +245,7 @@ sub get_mutect_split_command {
 		'-I:tumor', $args{tumour},
 		'--out', $args{output_stem} . '_$CHROM.vcf',
 		'--intervals', '$CHROM',
-		'--interval_padding 100'
+		'--interval-padding 100'
 		);
 
 	if (defined($args{normal})) {
