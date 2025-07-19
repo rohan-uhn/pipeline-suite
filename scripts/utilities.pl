@@ -390,7 +390,7 @@ sub write_script {
 		$job_params = "#SBATCH " . join("\n#SBATCH ",
 			'--job-name="' . $args{name} . '"',
 			'-D ' . $job_log_dir,
-			'-t 04:00:00',
+			'-t 08:00:00',
 			'--mem ' . $args{mem},
 			'-c ' . $args{cpus_per_task}
 			);
