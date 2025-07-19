@@ -430,10 +430,10 @@ mavis:
     mavis_time_limit: # in seconds, default is 57600 ; increase if individual steps are running out of time
     mavis_max_jobs: # maximum number of jobs to submit at a time; decrease if hitting slurm job cap
 #    mavis_queue: # if the above mavis_mem_limit or mavis_time_limit require a non-default queue/partition
-    mavis_annotations: /cluster/projects/pughlab/references/MAVIS_ref/ensembl79_hg38_annotations.json
-    mavis_masking: /cluster/projects/pughlab/references/MAVIS_ref/GRCh38_masking.tab
-    mavis_dgv_anno: /cluster/projects/pughlab/references/MAVIS_ref/dgv_hg38_variants.tab
-    mavis_cytoband: /cluster/projects/pughlab/references/MAVIS_ref/cytoBand.txt
+    mavis_annotations: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mavis/ensembl79_hg38_annotations.json
+    mavis_masking: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mavis/GRCh38_masking.tab
+    mavis_dgv_anno: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mavis/dgv_hg38_variants.tab
+    mavis_cytoband: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/mavis/cytoBand.txt
     mavis_draw_fusions_only: false
     mavis_aligner: 'bwa mem'
 msi_sensor:
