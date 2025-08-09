@@ -1,6 +1,6 @@
 ---
 project_name: trog_calling
-output_dir: /cluster/projects/kridelgroup/Rohan/TROG/output/
+output_dir: /cluster/projects/kridelgroup/Rohan/brisbane/output/
 sample_type: # optional; can be germline or ctdna
 seq_type: targeted # must be one of exome, targeted, rna or wgs
 seq_center: PMGC
