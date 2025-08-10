@@ -12,7 +12,7 @@ ref_type: hg38 # one of hg38, hg19, GRCh37 or GRCh38 (minimal testing with GRCh3
 reference: /cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa #
 baits_bed: 
 targets_bed: /cluster/projects/kridelgroup/Rohan/TROG/TROG_3054901_Covered_Merged_Fixed_LiftedHG38.bed #
-gnomad: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/af-only-gnomad.hg38.vcf.gz # 
+gnomad: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/af-only-gnomad.sorted.hg38.vcf.gz # 
 dbsnp: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/dbSNP_GRCh38p7_b151_common_chr.vcf.gz # 
 cosmic: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/CosmicVariants_full_sorted_chr.vcf.gz #
 snp6: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/GRCh38_SNP6.tsv.gz #
