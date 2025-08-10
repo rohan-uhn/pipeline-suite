@@ -79,32 +79,32 @@ bwa:
                 normal: 16G
                 tumour: 16G
             n_cpus:
-                normal: 4
-                tumour: 4
+                normal: 8
+                tumour: 8
             time:
                 normal: '05:00:00'
                 tumour: '05:00:00'
         sort:
             mem:
-                normal: 4G
-                tumour: 4G
+                normal: 16G
+                tumour: 16G
             time:
                 normal: '05:00:00'
                 tumour: '05:00:00'
         index:
             mem:
-                normal: 2G
-                tumour: 2G
+                normal: 16G
+                tumour: 16G
             time:
                 normal: '05:00:00'
                 tumour: '05:00:00'
         merge:
             tool: 'picard' # or sambamba
             mark_dup: Y
-            n_cpus: 1 # or more for sambamba
+            n_cpus: 4 # or more for sambamba
             java_mem:
-                normal: 7g
-                tumour: 11g
+                normal: 16g
+                tumour: 16g
             mem:
                 normal: 8G
                 tumour: 12G
