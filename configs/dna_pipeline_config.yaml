@@ -1,6 +1,6 @@
 ---
-project_name: brisbane_calling
-output_dir: /cluster/projects/kridelgroup/Rohan/brisbane/output/
+project_name: e4402_calling
+output_dir: /cluster/projects/kridelgroup/Rohan/E4402/output/
 sample_type: # optional; can be germline or ctdna
 seq_type: targeted # must be one of exome, targeted, rna or wgs
 seq_center: PMGC
@@ -11,7 +11,7 @@ hpc_group:
 ref_type: hg38 # one of hg38, hg19, GRCh37 or GRCh38 (minimal testing with GRCh37/8)
 reference: /cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa #
 baits_bed: 
-targets_bed: /cluster/projects/kridelgroup/Rohan/TROG/TROG_3054901_Covered_Merged_Fixed_LiftedHG38.bed #
+targets_bed: /cluster/projects/kridelgroup/Rohan/E4402/e4402_hg38.sorted.bed #
 gnomad: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/af-only-gnomad.hg38.vcf.gz # 
 dbsnp: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/dbSNP_GRCh38p7_b151_common_chr.vcf.gz # 
 cosmic: /cluster/projects/kridelgroup/Rohan/pugh_pipeline/transfered_references/hg38/CosmicVariants_full_sorted_chr.vcf.gz #
