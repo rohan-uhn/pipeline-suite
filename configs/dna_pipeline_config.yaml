@@ -103,11 +103,11 @@ bwa:
             mark_dup: Y
             n_cpus: 4 # or more for sambamba
             java_mem:
-                normal: 16g
-                tumour: 16g
+                normal: 24g
+                tumour: 24g
             mem:
-                normal: 8G
-                tumour: 12G
+                normal: 24G
+                tumour: 24G
             time:
                 normal: '05:00:00'
                 tumour: '05:00:00'
