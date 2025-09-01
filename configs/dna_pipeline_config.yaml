@@ -1,6 +1,6 @@
 ---
 project_name: uhn1_calling
-output_dir: /cluster/projects/kridelgroup/Rohan/uhn1targ/output/ # /cluster/projects/kridelgroup/Rohan/E4402/output/
+output_dir: /cluster/projects/kridelgroup/Rohan/uhn1tar/output/ # /cluster/projects/kridelgroup/Rohan/E4402/output/
 sample_type: # optional; can be germline or ctdna
 seq_type: targeted # must be one of exome, targeted, rna or wgs
 seq_center: PMGC
