@@ -36,7 +36,7 @@ samtools_version: 1.20
 picard_version: 2.6.0
 sambamba_version: 0.7.0 
 bedtools_version: 2.27.1
-gatk_version: 4.6.0.0 # 3.8 
+gatk_version: 3.8 #4.6.0.0  
 gatk_cnv_version: 4.1.8.1
 vcftools_version: 0.1.15
 mutect_version: 1.1.5
