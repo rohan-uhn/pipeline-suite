@@ -6,6 +6,80 @@ metadata, and generates configuration files used by downstream pipeline stages.
 
 ---
 
+## Before You Begin
+
+### Clone the Repository
+
+Start by cloning this repository and moving into the project directory:
+
+```bash
+git clone https://github.com/rohan-uhn/pipeline-suite
+cd pipeline-suite
+````
+
+---
+
+## Software Requirements
+
+This pipeline is designed to run on an HPC environment and assumes the
+availability of the following core tools (either via modules or conda):
+
+- **Perl**: 5.40.0
+- **FastQC**: 0.11.5
+- **BWA**: 0.7.15
+- **Samtools**: 1.20
+- **Picard**: 2.6.0
+- **GATK**: 3.8 and 4.6.0.0
+- **R**: 4.1.0
+
+A comprehensive list of tool versions, dependencies, and reference files is documented in:
+
+```
+configs/dna_pipeline_config.yaml
+```
+
+Users should refer to this file for full provenance and version details.
+
+---
+
+## Conda Environments
+
+Two separate conda environments are required to run this pipeline.
+Environment definition files are provided in the `environments/` directory.
+
+### Required Environments
+
+- **CNVkit environment**
+  - File: `environments/cnvkit_env.yml`
+  - Used for CNV calling and python libararies
+
+- **VEP environment**
+  - File: `environments/vep_env.yml`
+  - Used for variant annotation with Ensembl VEP
+
+---
+
+### Creating Conda Environments
+
+Each environment was generated using:
+
+```bash
+conda activate <env_name>
+conda env export > environment_exact.yml
+```
+
+To recreate the environments, run:
+
+```bash
+conda env create -f environments/cnvkit_env.yml
+conda env create -f environments/vep_env.yml
+```
+
+Activate the appropriate environment before running the corresponding
+pipeline stages.
+
+---
+
 ## Overview
 
 The preparation step consists of four main tasks:
