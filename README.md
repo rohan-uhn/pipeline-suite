@@ -187,7 +187,7 @@ and HPC-specific execution requirements.
 For details on the original pipeline architecture, additional modules,
 and broader use cases, please refer to the original documentation:
 
-- PuLab pipeline-suite repository and wiki: *([link here](https://github.com/pughlab/pipeline-suite/wiki))*
+- PuLab pipeline-suite repository and wiki: *([wiki](https://github.com/pughlab/pipeline-suite/wiki))*
 
 ---
 
