@@ -223,6 +223,92 @@ targets_bed: <path_to_sorted_targets.bed>
 
 ---
 
+### 3.1 Updating HPC Job Submission Timings and Memory Allocations
+
+The original PuLab DNA-seq pipeline supports custom **memory and wall-time**
+specifications for individual pipeline steps via the
+`configs/dna_pipeline_config.yaml` file.
+
+However, in this adapted implementation:
+
+- **Memory allocations** specified in the configuration file are respected
+- **Wall-time specifications** from the configuration file are **not reliably
+  propagated** to SLURM job submissions due to differences in:
+  - HPC scheduler behavior
+  - Tool versions
+  - Cluster-specific SLURM configuration
+
+As a result, job wall-times are currently **hard-coded** to a default of:
+
+```text
+02-00:00:00 (2 days)
+````
+
+for each SLURM job submission.
+
+---
+
+#### Understanding the Current Behavior
+
+The SLURM submission parameters are defined directly in the pipeline utility
+script:
+
+```
+scripts/utilities.pl
+```
+
+Specifically, the wall-time is set in the SLURM job header generation logic:
+
+```perl
+if ('slurm' eq $args{hpc_driver}) {
+
+    print $fh_script "#!/bin/bash\n";
+
+    $job_params = "#SBATCH " . join("\n#SBATCH ",
+        '--job-name="' . $args{name} . '"',
+        '-D ' . $job_log_dir,
+        '-t 02-00:00:00',
+        '--mem ' . $args{mem},
+        '-c ' . $args{cpus_per_task}
+    );
+}
+```
+
+This logic is defined around **line 393** of `scripts/utilities.pl`.
+
+---
+
+#### Customizing Wall-Time
+
+If you encounter:
+
+- Jobs timing out prematurely, or
+- Jobs completing much faster than the default allocation, 
+you may manually adjust the wall-time by editing the `-t` parameter in
+`utilities.pl`.
+
+For example:
+
+```text
+-t 01-00:00:00   # 1 day
+-t 08:00:00   # 8 hours
+```
+
+> **Important:**
+> Any changes made to `utilities.pl` will apply globally to all pipeline steps
+> submitted via SLURM.
+
+---
+
+#### Recommendation
+
+- Use `configs/dna_pipeline_config.yaml` to tune **memory usage**
+- Modify `utilities.pl` **only if necessary** to address cluster-specific
+  wall-time constraints
+- Monitor SLURM logs to determine whether timing adjustments are required
+
+---
+
 ## 4. Generate FASTQ YAML Configuration
 
 The FASTQ YAML file defines the mapping between sample IDs and FASTQ files
