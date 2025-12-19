@@ -295,7 +295,7 @@ A shell wrapper script is used to execute the cohort-based CNV workflow.
 ### Wrapper Usage
 
 ```bash
-sbatch run_tp53_cnv_wrapper.sh \
+bash <path_to_run_tp53_cnv_wrapper.sh> \
   <sample_list.txt> \
   <bamqc_dir> \
   <outdir>
