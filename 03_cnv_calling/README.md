@@ -421,9 +421,9 @@ is computed across samples.
 
 For each sample *i*:
 
-- Let ( x_i ) be the TP53 gene-level log2 copy ratio
-- Let ( \mu ) be the cohort median of ( x )
-- Let ( \sigma ) be the cohort standard deviation of ( x )
+- Let (x_i) be the TP53 gene-level log2 copy ratio
+- Let (μ) be the cohort median of ( x )
+- Let (σ) be the cohort standard deviation of ( x )
 
 The z-score is computed as:
 
