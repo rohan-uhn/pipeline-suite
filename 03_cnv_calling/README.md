@@ -171,6 +171,8 @@ chr17:7668421–7687490
 ### Script
 
 ```bash
+module load R/3.6.1
+
 Rscript <path_to_cnvkit_tp53_weighted_log2.R> \
   <cnvkit_output_directory> \
   <output.tsv>
