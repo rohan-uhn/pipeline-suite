@@ -62,7 +62,7 @@ This step:
 ### Script
 
 ```bash
-bash make_cnvkit_reference_cleaned.sh \
+bash <path_to_make_cnvkit_reference_cleaned.sh> \
   <gatk_bam_config.yaml> \
   <raw_targets.bed> \
   <output_directory> \
@@ -96,7 +96,7 @@ the GATK BAM configuration YAML.
 ### Script
 
 ```bash
-bash run_cnvkit_per_sample.sh \
+bash <path_to_run_cnvkit_per_sample.sh> \
   <gatk_bam_config.yaml> \
   <targets.target.bed> \
   <flat_reference.cnn> \
@@ -142,7 +142,7 @@ After CNVkit jobs complete, verify that all samples produced `.cnr` files.
 ### Script
 
 ```bash
-bash check_targetcoverage.sh <cnvkit_output_directory>
+bash <path_to_check_targetcoverage.sh> <cnvkit_output_directory>
 ```
 
 ### Output
@@ -171,7 +171,7 @@ chr17:7668421–7687490
 ### Script
 
 ```bash
-Rscript cnvkit_tp53_weighted_log2.R \
+Rscript <path_to_cnvkit_tp53_weighted_log2.R> \
   <cnvkit_output_directory> \
   <output.tsv>
 ```
