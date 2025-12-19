@@ -41,7 +41,7 @@ environments/cnvkit_env.yml
 
 ---
 
-## Overview of CNVkit Workflow
+## 3.1 Overview of CNVkit Workflow
 
 The CNVkit portion of this module consists of four steps:
 
@@ -52,7 +52,7 @@ The CNVkit portion of this module consists of four steps:
 
 ---
 
-## 3.1 Build Clean Targets and Flat CNVkit Reference
+## 3.1.1 Build Clean Targets and Flat CNVkit Reference
 
 This step:
 - Cleans and validates the target BED file
@@ -88,7 +88,7 @@ These files are required for all downstream CNVkit runs.
 
 ---
 
-## 3.2 Run CNVkit Per Sample (Tumor-Only)
+## 3.1.2 Run CNVkit Per Sample (Tumor-Only)
 
 CNVkit is run **independently per sample** using the BAM paths defined in
 the GATK BAM configuration YAML.
@@ -135,7 +135,7 @@ The `.cnr` files are the primary inputs for downstream CNV summarization.
 
 ---
 
-## 3.3 Validate CNVkit Outputs
+## 3.1.3 Validate CNVkit Outputs
 
 After CNVkit jobs complete, verify that all samples produced `.cnr` files.
 
@@ -155,7 +155,7 @@ This step should be completed **before proceeding** to cohort-level analysis.
 
 ---
 
-## 3.4 Aggregate CNVkit Results for TP53
+## 3.1.4 Aggregate CNVkit Results for TP53
 
 This step extracts CNVkit log2 ratios overlapping the **TP53 locus**
 and summarizes them per sample using weighted statistics.
