@@ -493,3 +493,241 @@ final/tp53_gene_copyratio_final.tsv
 
 This file is used directly in **consensus CNV calling** (Part 3.3).
 
+## 3.3 Consensus CNV Calling
+
+This step performs **consensus CNV calling** for TP53 by integrating results from:
+
+1. **CNVkit (tumor-only, target-only)**
+2. **Custom cohort-based CNV workflow (BAMQC-based)**
+
+The goal is to produce a **robust, conservative TP53 loss call** that minimizes
+false positives in tumor-only data.
+
+> **Scope note:**  
+> This step is designed to call **copy number loss only**.  
+> Copy number gains are not currently assessed, but could be incorporated
+> with additional thresholds and logic.
+
+---
+
+## Rationale
+
+Tumor-only CNV calling is inherently noisy due to:
+- Lack of matched normals
+- Variable tumor purity
+- Cohort-specific depth effects
+
+To address this, consensus calling is used to:
+- Combine **two independent CNV signals**
+- Apply **conservatively calibrated thresholds**
+- Reduce false-positive loss calls
+
+This approach prioritizes **specificity over sensitivity**, particularly
+important when interpreting tumor suppressor genes such as TP53.
+
+---
+
+## 3.3.1 Threshold Calibration Strategy
+
+### Overview
+
+The loss thresholds used in this step were **empirically calibrated** using
+a separate benchmarking analysis involving:
+
+- A **tumor+normal cohort**
+- CNV calls generated using:
+  - GATK CNV with a panel of normals (PoN)
+  - CNVkit with a normals-based reference
+
+The goal of calibration was to determine tumor-only thresholds such that:
+
+- **No normal samples** were called as TP53 loss
+- Tumor-only calls **closely matched** calls from normal-referenced workflows
+- Agreement with GATK CNV was maximized
+
+---
+
+### Optimization Criteria
+
+Thresholds were selected to:
+- Eliminate false-positive loss calls in normals
+- Maximize **F1 score** when compared against:
+  - GATK CNV (PoN-based)
+  - CNVkit (normal-reference-based)
+
+As a result, these thresholds are **not arbitrary**, but tuned to mimic
+gold-standard CNV calling as closely as possible using tumor-only data.
+
+---
+
+## 3.3.2 Applied Loss Thresholds
+
+The following **log2 copy ratio thresholds** are applied:
+
+| Method    | Metric                     | Loss Threshold |
+|-----------|----------------------------|----------------|
+| CNVkit   | Weighted TP53 log2 ratio    | `< -0.30`     |
+| Custom   | Gene-level TP53 log2 ratio  | `< -0.18`     |
+
+Only **loss vs neutral** states are considered.
+
+---
+
+## 3.3.3 Inputs
+
+This step requires two TSV files generated previously:
+
+- **CNVkit TP53 summary**
+```
+tp53_cnvkit_summary.tsv
+
+```
+- **Custom cohort-based TP53 summary**
+```
+tp53_gene_copyratio_final.tsv
+
+````
+
+Both files must contain a `sample` column.
+
+---
+
+## 3.3.4 Running Consensus CNV Calling
+
+Consensus calling is performed using a single R script.
+
+### Command
+
+```bash
+Rscript combine_tp53_cnv_calls.R \
+<cnvkit_tp53.tsv> \
+<custom_tp53.tsv> \
+<output.tsv>
+````
+
+---
+
+## 3.3.5 Consensus Calling Logic
+
+The script performs the following steps.
+
+---
+
+### Step 1: Input Harmonization
+
+Relevant fields are extracted and standardized from each input:
+
+**From CNVkit:**
+- Weighted TP53 log2 ratio
+- Number of bins
+- Total bin weight
+- Median and IQR of log2 ratios
+
+**From Custom Workflow:**
+- TP53 gene-level log2 ratio
+- Z-score (for reference)
+- IQR
+- Number of contributing intervals
+
+---
+
+### Step 2: Independent Loss Calling
+
+Loss calls are recomputed internally using calibrated thresholds:
+
+```text
+CNVkit:  log2 < −0.30 → Loss
+Custom:  log2 < −0.18 → Loss
+```
+
+This ensures reproducibility and avoids reliance on upstream annotations.
+
+---
+
+### Step 3: Merge and Missingness Annotation
+
+Results from both methods are merged by sample ID.
+
+Each sample is annotated with a **missingness category**:
+
+- `none` – both methods present
+- `cnvkit_missing`
+- `custom_missing`
+- `both_missing`
+
+This allows transparent downstream filtering.
+
+---
+
+### Step 4: Call Agreement Assessment
+
+For samples where **both methods are present**, agreement is assessed:
+
+- `MATCH` – both methods agree
+- `DISCORDANT` – methods disagree
+
+Samples with missing data from either method are not forced into agreement.
+
+---
+
+## 3.3.6 Outputs
+
+### Primary Output
+
+```text
+<output.tsv>
+```
+
+This file contains, per sample:
+
+- CNVkit TP53 metrics and call
+- Custom TP53 metrics and call
+- Missingness status
+- Call agreement annotation
+
+This is the **final integrated CNV table** used for downstream analyses,
+visualization, and reporting.
+
+---
+
+### Console Summary
+
+Upon completion, the script prints:
+
+- Total number of samples
+- Number of samples with:
+  - Both methods present
+  - CNVkit missing
+  - Custom missing
+  - Both missing
+- Agreement vs discordance counts
+
+This provides a quick QC check of cohort-level consistency.
+
+---
+
+## Interpretation Notes
+
+* **Loss calls are intentionally conservative**
+* Z-scores from the custom workflow are retained for context but are **not
+  enforced** at this stage
+
+---
+
+## Extensibility
+
+With modification, this framework can be extended to:
+- Copy number **gain** calling
+- Additional genes or regions
+- Alternative threshold optimization strategies
+- Weighted consensus schemes
+
+---
+
+## Next Step
+
+Proceed to:
+
+→ **04 – SNV Calling**
+
+This stage performs multi-caller SNV detection and filtering.
