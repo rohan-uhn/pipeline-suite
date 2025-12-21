@@ -32,6 +32,14 @@ This module requires outputs from **02 – Preprocessing**:
 - Reference genome FASTA (`.fa`) and index (`.fai`)
 - Panel of Normals (PoN), the [1000 Genomes hg38 PoN](https://gatk.broadinstitute.org/hc/en-us/articles/360035890631-Panel-of-Normals-PON) is recommeded
 
+> **Note on BED files:**  
+> Two target BED files are generated in **01 – Preparation**:
+> - `targets.bed`
+> - `targets_padding100bp.bed`
+>
+> For **Strelka, VarDict, and VarScan**, the **padding100bp BED** must be used.  
+> For **MuTect and MuTect2**, the **original targets.bed** is used.
+
 ---
 
 ## Software Environments
@@ -77,7 +85,7 @@ VarScan requires **two stages** due to how read count information is represented
 - Tumor-only calling using `samtools mpileup`
 - Read counts are **not reliably propagated** through VEP annotation
 - Counts must be extracted and merged manually in Stage 2
-- Uses the target BED file from **01 – Preparation**
+- Uses the **`targets_padding100bp.bed`** file generated in **01 – Preparation**
 - Requires:
   - `cnvkit_env` (utilities / merging)
   - `vep_env` (annotation)
@@ -98,7 +106,7 @@ This stage:
 bash run_varscan_stage1.sh \
   <gatk_bam_config.yaml> \
   <pon_positions_file> \
-  <targets.bed> \
+  <targets_targets_padding100bp.bed> \
   <reference.fa> \
   <output_directory>
 ```
@@ -142,7 +150,7 @@ characteristics.
 ### Key Notes
 
 - Tumor-only calling using **VarDictJava**
-- Uses the **same target BED file** generated in **01 – Preparation**
+- Uses the **`targets_padding100bp.bed`** file generated in **01 – Preparation**
 - Applies internal VarDict filters prior to PoN filtering
 - Variants are filtered to SNVs and short indels
 - Panel of Normals (PoN) is applied to remove recurrent artifacts
@@ -170,7 +178,7 @@ This stage performs:
 bash run_vardict_stage1.sh \
   <gatk_bam_config.yaml> \
   <pon_positions_file> \
-  <targets.bed> \
+  <targets_padding100bp.bed> \
   <reference.fa> \
   <output_directory>
 ````
@@ -235,8 +243,8 @@ analysis, it can be adapted for tumor-only SNV and indel calling by:
 ### Key Notes
 - Tumor-only calling using **Strelka germline workflow**
 - Variant calling restricted to target regions
-- Requires a **compressed and indexed BED file** (`.bed.gz` + `.tbi`)
-  generated in **01 – Preparation**
+- Requires a **compressed and indexed padded BED file**
+  (`targets_padding100bp.bed.gz` + `.tbi`) generated in **01 – Preparation**
 - Requires a **compressed** Panel of Normals (PoN) (`.vcf.gz`)
 - Requires:
   - Strelka
@@ -264,7 +272,7 @@ The output of this stage is a **filtered Strelka VCF per sample**.
 bash run_strelka_stage1.sh \
   <gatk_bam_config.yaml> \
   <panel_of_normals.vcf.gz> \
-  <targets.bed.gz> \
+  <targets_padding100bp.bed.gz> \
   <reference.fa> \
   <output_directory>
 ````
