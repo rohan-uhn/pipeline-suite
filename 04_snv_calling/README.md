@@ -496,4 +496,197 @@ These MAF files are used in downstream **multi-caller merging and analysis**.
 
 ---
 
+# 4.2 – Multi-Caller Variant Merging and Annotation
+
+After completing SNV calling and annotation for all five callers
+(**MuTect, MuTect2, VarScan, VarDict, Strelka**), the next step is to
+**combine variant calls across callers and samples** into unified,
+analysis-ready tables.
+
+This process is performed using **three Python scripts**, run sequentially.
+
+> **Important:**
+> These scripts are **semi–hard-coded**:
+>
+> * Sample lists are read from a local `list.txt`
+> * Input file paths assume a fixed cohort directory structure
+> * Output directories are predefined
+> * The gnomAD VCF path is hard-coded
+>
+> You will likely need to **edit paths and sample lists** when adapting
+> this workflow to a new cohort or directory layout.
+> However with a few changes the scripts can be made more dynamic.
+
+---
+
+## Environment Setup
+
+Before running any merging steps, activate the required conda environment:
+
+```bash
+conda activate cnvkit_env
+```
+
+---
+
+## Expected Directory Structure (Example)
+
+Before merging, each caller should have already been run for all samples
+in the cohort. A typical cohort-level directory layout looks like:
+
+```text
+<Cohort>/
+├── Mutect/
+│   └── <SAMPLE>/<SAMPLE>/<SAMPLE>_MuTect_filtered_annotated.maf
+├── Mutect2/
+│   └── <SAMPLE>/<SAMPLE>/<SAMPLE>_MuTect2_filtered_annotated.maf
+├── Varscan/
+│   └── <SAMPLE>/<SAMPLE>/<SAMPLE>_VarScan_annotated_with_counts.maf
+├── Vardict/
+│   └── <SAMPLE>/<SAMPLE>/<SAMPLE>_VarDict_filtered_annotated.maf
+├── Strelka/
+│   └── <SAMPLE>/<SAMPLE>/Strelka/<SAMPLE>_Strelka_annotated.maf
+```
+
+The merge scripts **assume this structure** when locating input MAF files.
+But you will need to modify the paths within the script to match your structure.
+
+---
+
+## Step 4.2.1 – Prepare the `combined/` Working Directory
+
+From the cohort directory:
+
+```bash
+mkdir combined
+cd combined
+```
+
+### Create the sample list
+
+Create a `list.txt` file containing **one sample ID per line**:
+
+```text
+SAMPLE_1
+SAMPLE_2
+SAMPLE_3
+```
+
+This file is reused across multiple scripts and should match the sample
+IDs used throughout earlier pipeline steps. You can resue the `list.txt` created in **Part 3**
+
+---
+
+## Step 4.2.2 – Merge Variant Calls Per Sample Across Callers
+
+The **first Python script (`combined_part1.py`)** performs **per-sample, multi-caller merging**.
+
+### What this step does
+For each sample listed in `list.txt`, the script:
+- Loads annotated MAFs from all five callers (if present)
+- Harmonizes shared MAF fields
+- Renames caller-specific depth/count columns
+- Generates boolean presence flags for each caller
+- Deduplicates variants using genomic coordinates and alleles
+- Outputs **one merged TSV per sample**
+
+### Setup
+Before running:
+1. Create and move into the `combined/` directory
+2. Ensure `list.txt` exists (one sample ID per line)
+3. Copy `combined_part1.py` into `combined/`
+4. Verify or update within the script:
+   - Cohort-specific base paths
+   - Caller directory names
+   - Sample list filename (`list.txt`)
+
+### Run
+```bash
+python combined_part1.py
+```
+
+### Output
+Each sample produces:
+
+```text
+merged_<SAMPLE>_variants_cleaned.tsv
+```
+
+---
+
+## Step 4.2.3 – Merge All Samples into a Cohort-Level Table
+
+After all per-sample files are created:
+
+```bash
+ls *_variants_cleaned.tsv > caller_list.txt
+```
+
+The **second Python script (`combined_part2.py`)** then:
+
+- Reads `caller_list.txt`
+- Appends all per-sample TSVs into a single cohort-level table
+- Preserves a consistent column order
+
+### Run
+
+```bash
+python combined_part2.py
+```
+
+### Output
+
+```text
+merged_all_samples_variants_cleaned.tsv
+```
+
+This file contains **all variants across all samples and callers**.
+
+---
+
+## Step 4.2.4 – Annotate Variants with gnomAD Allele Frequency
+
+The **final Python script (`combined_part3.py`)** adds population allele frequency information
+from **gnomAD**.
+
+### What this step does
+
+- Loads `merged_all_samples_variants_cleaned.tsv`
+- Queries a **bgzipped, indexed gnomAD VCF** using `pysam`
+- Matches variants by:
+  - Chromosome
+  - Position
+  - Reference allele
+  - Alternate allele
+- Extracts `AF` from the gnomAD INFO field
+- Appends a new column: `gnomAD_AF`
+
+> **Note:**
+> The path to the gnomAD VCF is **hard-coded** in the script and should be
+> updated if your reference files are stored elsewhere.
+
+### Run
+
+```bash
+python combined_part3.py
+```
+
+### Output
+
+```text
+merged_all_samples_with_gnomAD_AF.tsv
+```
+
+This is the **final merged SNV table** used for downstream filtering,
+summary statistics, and visualization in **Part 5**.
+
+---
+
+## Summary of Outputs
+
+| File                                      | Description                             |
+| ----------------------------------------- | --------------------------------------- |
+| `merged_<SAMPLE>_variants_cleaned.tsv`    | Per-sample merged multi-caller variants |
+| `merged_all_samples_variants_cleaned.tsv` | Cohort-level merged variants            |
+| `merged_all_samples_with_gnomAD_AF.tsv`   | Cohort-level variants with gnomAD AF    |
 
