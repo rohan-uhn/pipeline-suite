@@ -131,7 +131,7 @@ This file is used in downstream multi-caller merging.
 
 ---
 
-## 4.1.2 VarDict (Tumor-Only)
+## 4.1.2 VarDict
 
 VarDict is run as a **two-stage tumor-only variant calling workflow**, similar in
 structure to VarScan, but with different internal filtering logic and output
@@ -216,6 +216,95 @@ For each sample, the final output is:
 <SAMPLE>_VarDict_filtered_annotated.maf
 ```
 This file is used in downstream multi-caller merging.
+
+---
+
+## 4.1.3 Strelka
+
+Strelka is run as a **two-stage tumor-only variant calling workflow** using
+the **Strelka germline model**, restricted to targeted regions.
+
+Although Strelka is primarily designed for germline or paired tumor–normal
+analysis, it can be adapted for tumor-only SNV and indel calling by:
+- Restricting calls to target regions
+- Applying strict post-calling filtering
+- Removing recurrent artifacts using a Panel of Normals (PoN)
+
+---
+
+### Key Notes
+- Tumor-only calling using **Strelka germline workflow**
+- Variant calling restricted to target regions
+- Requires a **compressed and indexed BED file** (`.bed.gz` + `.tbi`)
+  generated in **01 – Preparation**
+- Requires a **compressed** Panel of Normals (PoN) (`.vcf.gz`)
+- Requires:
+  - Strelka
+  - `vep_env` for annotation
+
+---
+
+## Stage 1 – Variant Calling and Filtering
+
+This stage performs:
+1. **Strelka germline variant calling**
+   - Run on tumor-only BAMs
+   - Restricted to targeted regions using the compressed BED file
+2. **Post-calling filtering**
+   - Retains only `PASS` variants
+   - Removes variants present in the Panel of Normals (PoN)
+
+The output of this stage is a **filtered Strelka VCF per sample**.
+
+---
+
+### Command
+
+```bash
+bash run_strelka_stage1.sh \
+  <gatk_bam_config.yaml> \
+  <panel_of_normals.vcf.gz> \
+  <targets.bed.gz> \
+  <reference.fa> \
+  <output_directory>
+````
+
+> **Important:**
+> The BED file and PoN VCF **must** be bgzipped and indexed (`.bed.gz` + `.tbi` + `vcf.gz`).
+> The BED file is created during **01 – Preparation**.
+
+---
+
+## Stage 2 – VEP Annotation and Final MAF Generation
+
+This stage:
+- Annotates the filtered Strelka VCF using VEP
+- Converts variants to MAF format using VEP
+- Optionally retains an annotated VCF for reference and debugging
+- Cleans up intermediate Strelka working directories after success
+
+---
+
+### Command
+
+```bash
+bash run_strelka_stage2_annotate.sh \
+  <gatk_bam_config.yaml> \
+  <reference.fa> \
+  <output_directory>
+```
+
+Stage 2 must be run **after Stage 1 completes successfully**.
+
+---
+
+## Strelka Outputs
+
+For each sample, the final output is:
+
+```text
+<SAMPLE>_Strelka_annotated.maf
+```
 
 ---
 
