@@ -415,3 +415,77 @@ For each sample, the final output is:
 
 ---
 
+## 4.1.5 MuTect2
+
+MuTect2 (GATK4) is used for **tumor-only SNV calling** with a Panel of Normals (PoN).
+Compared to MuTect v1, MuTect2 has improved filtering and integrates a dedicated
+post-calling filtering step via `FilterMutectCalls`.
+
+### Key Notes
+
+- Tumor-only mode (no matched normal)
+- Uses a **Panel of Normals (PoN)** to suppress recurrent technical artifacts
+- Targeted calling using the BED file generated in **01 – Preparation**
+- Calls are filtered using `FilterMutectCalls`
+- Only **PASS** variants are retained for annotation
+- Requires **GATK 4.6.0.0**
+- Annotation is performed using **VEP / vcf2maf**
+- Uses the `vep_env` conda environment
+
+---
+
+### Stage 1 – Variant Calling and Filtering
+
+This stage:
+- Runs `Mutect2` on each tumor BAM
+- Applies `FilterMutectCalls` to flag likely artifacts
+- Produces a filtered VCF per sample
+
+#### Command
+
+```bash
+bash run_mutect2.sh \
+  <gatk_bam_config.yaml> \
+  <panel_of_normals.vcf> \
+  <targets.bed> \
+  <reference.fa> \
+  <output_directory>
+````
+
+#### Outputs (per sample)
+
+```text
+<SAMPLE>_MuTect2_raw.vcf
+<SAMPLE>_MuTect2_filtered.vcf
+```
+
+---
+
+### Stage 2 – PASS Filtering and Annotation
+
+This stage:
+- Retains only `FILTER=PASS` variants
+- Annotates variants using VEP
+- Converts annotated VCFs to MAF format using VEP
+
+#### Command
+
+```bash
+bash run_mutect2_annotate.sh \
+  <gatk_bam_config.yaml> \
+  <reference.fa> \
+  <output_directory>
+```
+
+## MuTect2 Outputs
+
+For each sample, the final output is:
+
+```text
+<SAMPLE>_MuTect2_filtered_annotated.maf
+```
+These MAF files are used in downstream **multi-caller merging and analysis**.
+
+---
+
+
