@@ -68,7 +68,7 @@ For each caller, the workflow follows the same high-level pattern:
 
 ---
 
-## 4.1.1 VarScan (Tumor-Only)
+## 4.1.1 VarScan
 
 VarScan requires **two stages** due to how read count information is represented.
 
@@ -126,6 +126,94 @@ For each sample, the final output is:
 
 ```text
 <SAMPLE>_VarScan_annotated_with_counts.maf
+```
+This file is used in downstream multi-caller merging.
+
+---
+
+## 4.1.2 VarDict (Tumor-Only)
+
+VarDict is run as a **two-stage tumor-only variant calling workflow**, similar in
+structure to VarScan, but with different internal filtering logic and output
+characteristics.
+
+---
+
+### Key Notes
+
+- Tumor-only calling using **VarDictJava**
+- Uses the **same target BED file** generated in **01 – Preparation**
+- Applies internal VarDict filters prior to PoN filtering
+- Variants are filtered to SNVs and short indels
+- Panel of Normals (PoN) is applied to remove recurrent artifacts
+- Requires:
+  - System-installed VarDictJava + R
+  - `vep_env` for VEP annotation
+
+---
+
+## Stage 1 – Variant Calling and Filtering
+
+This stage performs:
+- Raw variant calling using VarDict
+- Strand-bias correction and VCF conversion
+- Filtering based on:
+  - Variant depth
+  - Strand bias
+  - Variant type (SNVs and indels)
+- Panel of Normals (PoN) exclusion
+- Produces a filtered VCF per sample
+
+### Command
+
+```bash
+bash run_vardict_stage1.sh \
+  <gatk_bam_config.yaml> \
+  <pon_positions_file> \
+  <targets.bed> \
+  <reference.fa> \
+  <output_directory>
+````
+
+### Notes on Filtering
+
+The following filtering logic is applied internally:
+- Minimum variant allele frequency (default: 1%)
+- Minimum supporting reads
+- Strand bias filtering
+- Variant type restricted to:
+  - SNVs
+  - Insertions
+  - Deletions
+- PoN filtering applied **after** VarDict-specific filters
+
+The output of this stage is a **filtered VCF**, not yet annotated.
+
+---
+
+## Stage 2 – VEP Annotation and Final MAF Generation
+
+This stage:
+- Annotates the filtered VarDict VCF using VEP
+- Converts annotated variants to MAF format using VEP
+
+### Command
+
+```bash
+bash run_vardict_stage2.sh \
+  <gatk_bam_config.yaml> \
+  <reference.fa> \
+  <output_directory>
+```
+
+---
+
+## VarDict Outputs
+
+For each sample, the final output is:
+
+```text
+<SAMPLE>_VarDict_filtered_annotated.maf
 ```
 This file is used in downstream multi-caller merging.
 
