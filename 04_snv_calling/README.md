@@ -308,3 +308,110 @@ For each sample, the final output is:
 
 ---
 
+## 4.1.4 MuTect
+
+MuTect (v1) is run as a **two-stage tumor-only somatic SNV calling workflow**.
+Although MuTect was originally designed for paired tumor–normal analysis, it
+supports tumor-only calling through the use of a **Panel of Normals (PoN)** and
+external variant databases.
+
+---
+
+### Key Notes
+- Tumor-only somatic SNV calling using **MuTect v1**
+- Requires a **MuTect-compatible Panel of Normals**
+  - This PoN format differs from other callers
+- Uses external variant resources:
+  - **dbSNP (GRCh38 common variants)**
+  - **COSMIC variants**
+- Variant calling restricted to target regions
+- Filtering removes MuTect `REJECT` calls prior to annotation
+- Requires:
+  - MuTect v1
+  - `vep_env` for annotation
+
+---
+
+## Panel of Normals and Resource Files
+
+MuTect1 requires additional reference resources beyond a standard PoN:
+- **Panel of Normals (PoN)**  
+  Used to remove recurrent technical artifacts in tumor-only mode
+- **dbSNP (GRCh38)**  
+  Used to annotate known common variants
+- **COSMIC variants**  
+  Used to annotate known somatic mutations
+
+> **Important:**  
+> For MuTect v1, minor VCF header modifications may be required:
+> - Change the VCF version header from `VCFv4.2` to `VCFv4.1`
+> - Change the `AD` INFO definition from `Number=R` to `Number=.`
+>  
+> These changes ensure compatibility with MuTect v1’s VCF parser.
+
+---
+
+## Stage 1 – Variant Calling and Filtering
+
+This stage performs:
+1. **MuTect tumor-only variant calling**
+   - Runs MuTect with a tumor BAM only
+   - Uses PoN, dbSNP, and COSMIC for artifact suppression and annotation
+   - Restricts calling to target regions with padding
+
+2. **Post-calling filtering**
+   - Removes variants flagged as `REJECT`
+   - Retains only high-confidence MuTect calls
+
+The output of this stage is a **filtered MuTect VCF per sample**.
+
+---
+
+### Command
+
+```bash
+bash run_mutect_batch.sh \
+  <gatk_bam_config.yaml> \
+  <mutect_pon.vcf> \
+  <dbsnp.vcf.gz> \
+  <cosmic.vcf.gz> \
+  <targets.bed> \
+  <reference.fa> \
+  <output_directory>
+````
+
+---
+
+## Stage 2 – VEP Annotation and Final MAF Generation
+
+This stage:
+- Annotates the filtered MuTect VCF using VEP
+- Converts variants to MAF format using VEP
+- Optionally retains an annotated VCF for reference
+- Cleans up intermediate files upon successful annotation
+
+---
+
+### Command
+
+```bash
+bash run_mutect_annotate.sh \
+  <gatk_bam_config.yaml> \
+  <reference.fa> \
+  <output_directory>
+```
+
+Stage 2 must be run **after Stage 1 completes successfully**.
+
+---
+
+## MuTect Outputs
+
+For each sample, the final output is:
+
+```text
+<SAMPLE>_MuTect_filtered_annotated.maf
+```
+
+---
+
