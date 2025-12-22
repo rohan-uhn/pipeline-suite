@@ -1,7 +1,7 @@
-# Tumor-Only Targeted Sequencing Pipeline (HPC-Optimized)
+# Tumor-Only Targeted Sequencing Pipeline 
 
 This repository contains a customized DNA sequencing analysis pipeline derived from
-the PuLab pipeline-suite and adapted for **tumor-only targeted sequencing data**
+the PughLab pipeline-suite and adapted for **tumor-only targeted sequencing data**
 executed on a **high-performance computing (HPC)** environment.
 
 The pipeline has been extensively modified to support:
@@ -13,7 +13,7 @@ The pipeline has been extensively modified to support:
 - Dataset- and cluster-specific configuration via YAML files
 
 This repository includes both:
-1. All components of the PuLab pipeline-suite (primarily for preprocessing), and  
+1. All components of the PughLab pipeline-suite (primarily for preprocessing), and  
 2. Custom scripts and workflows layered on top to support tumor-only SNV and CNV analysis.
 
 ---
@@ -53,7 +53,7 @@ its own directory and documented independently.
 → `02_preprocessing/`
 
 > **Note:**  
-> Steps 1 and 2 are the only stages that directly rely on components of the PuLab pipeline-suite.
+> Steps 1 and 2 are the only stages that directly rely on components of the PughLab pipeline-suite.
 
 ---
 
@@ -117,7 +117,7 @@ which documents:
 - General pipeline settings
 
 This configuration file is included primarily for **documentation,
-provenance, and consistency** with the original PuLab pipeline-suite.
+provenance, and consistency** with the original PughLab pipeline-suite.
 Modifying aspects of the config will only alter Steps 01 and 02.
 
 ---
@@ -127,7 +127,7 @@ Modifying aspects of the config will only alter Steps 01 and 02.
 With the exception of **Preparation (Step 1)** and **Preprocessing (Step 2)**:
 
 - The CNV and SNV workflows **do not dynamically read tool versions**
-  from the PuLab pipeline configuration YAML.
+  from the PughLab pipeline configuration YAML.
 - Tool versions for CNV and SNV calling are controlled by:
   - The active conda environment
   - The standalone scripts used in `03_cnv_calling/` and `04_snv_calling/`
@@ -161,7 +161,7 @@ serving as inputs to the next.
 ## Note on Legacy Components
 
 This repository retains additional modules and scripts from the original
-PuLab pipeline-suite that are **not currently used** in the tumor-only workflow.
+PughLab pipeline-suite that are **not currently used** in the tumor-only workflow.
 These components are preserved for:
 - Future extensibility
 - Reference and reproducibility
@@ -187,7 +187,7 @@ and HPC-specific execution requirements.
 For details on the original pipeline architecture, additional modules,
 and broader use cases, please refer to the original documentation:
 
-- PuLab pipeline-suite repository and wiki: *([wiki](https://github.com/pughlab/pipeline-suite/wiki))*
+- PughLab pipeline-suite repository and wiki: *([wiki](https://github.com/pughlab/pipeline-suite/wiki))*
 
 ---
 
